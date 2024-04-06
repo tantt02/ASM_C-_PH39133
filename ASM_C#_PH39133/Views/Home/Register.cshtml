@@ -1,0 +1,103 @@
+﻿@model ASM_C__PH39133.Models.Customers
+
+@{
+	ViewData["Title"] = "Register";
+}
+
+<div class="container ">
+	<h1 class="text-center">Đăng ký</h1>
+
+	<div class="row justify-content-center">
+		<div class="col-md-4">
+			<form asp-action="Register">
+				<div asp-validation-summary="ModelOnly"
+					 class="text-danger"></div>
+
+				<div class="form-group mt-3">
+					@* <label asp-for="DienThoai"
+					class="control-label"></label> *@
+					<input asp-for="DienThoai"
+						   class="form-control"
+						   placeholder="Nhập SĐT" />
+					<span asp-validation-for="DienThoai"
+						  class="text-danger"></span>
+				</div>
+				<div class="form-group mt-3">
+					@* <label asp-for="TenKH"
+					class="control-label"></label> *@
+					<input asp-for="TenKH"
+						   class="form-control"
+						   placeholder="Nhập tên khách hàng" />
+					<span asp-validation-for="TenKH"
+						  class="text-danger"></span>
+				</div>
+				<div class="form-group mt-3">
+					@* <label asp-for="DiaChi"
+					class="control-label"></label> *@
+					<input asp-for="DiaChi"
+						   class="form-control"
+						   placeholder="Nhập địa chỉ" />
+					<span asp-validation-for="DiaChi"
+						  class="text-danger"></span>
+				</div>
+				<div class="form-group mt-3">
+					@* <label asp-for="GioiTinh"
+					class="control-label"></label> *@
+					<input asp-for="GioiTinh"
+						   class="form-control"
+						   placeholder="Nhập giới tính" />
+					<span asp-validation-for="GioiTinh"
+						  class="text-danger"></span>
+				</div>
+				<div class="form-group mt-3">
+					@* <label asp-for="MatKhau"
+					class="control-label"></label> *@
+					<input asp-for="MatKhau"
+						   class="form-control"
+						   placeholder="Nhập mật khẩu" />
+					<span asp-validation-for="MatKhau"
+						  class="text-danger"></span>
+				</div>
+				<div class="form-group d-flex justify-space-between align-items-center">
+					<div class="form-group">
+						<input type="submit"
+							   value="Đăng Ký"
+							   class="btn btn-primary mt-3 me-5" style="
+						   background-color: #088d52;" />
+					</div>
+					<div>
+						<a asp-controller="Home" asp-action="Index" class="btn btn-primary mt-3" style="background-color: #CC3300;">
+							Trở về
+						</a>
+					</div>
+				</div>
+				@{
+					if (ViewBag.Error != null)
+					{
+						<div class="alert alert-danger">@ViewBag.Error</div>
+					}
+					if (ViewBag.checkSDT != null)
+					{
+						<div class="alert alert-danger">@ViewBag.checkSDT</div>
+					}
+				}
+			</form>
+
+		</div>
+	</div>
+</div>
+
+@* <div>
+	<a asp-action="Index">
+		<button class="btn btn-primary mt-3" style="
+						   background-color: #CC3300;">
+			Trở về
+		</button>
+	</a>
+</div> *@
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

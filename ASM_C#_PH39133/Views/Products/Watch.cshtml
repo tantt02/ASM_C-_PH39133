@@ -1,0 +1,12 @@
+﻿@model ASM_C__PH39133.Models.Products
+
+@{
+    ViewData["Title"] = "Watch";
+}
+
+<p>Thông tin sản phẩm: @Model.TenSP</p>
+<p>Thông tin sản phẩm: @Model.SoLuong</p>
+<p>Thông tin sản phẩm: @Model.DonGia</p>
+<a style="line-height: 44px; " class="nav-link text-dark " asp-area="" asp-controller="Cart_details" asp-action="AddToCart" asp-route-idProduct="@Model.MaSP">Giỏ hàng</a>
+
+

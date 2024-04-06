@@ -1,0 +1,27 @@
+﻿@model ASM_C__PH39133.Models.Customers
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+
+</head>
+<body>
+    <div class="container ">
+        <h1 class="text-center">Đăng nhập</h1>
+        <form asp-action="Login" asp-controller="Home" method="post" style="width: 400px; margin: auto; " >
+            <input asp-for="DienThoai" class="form-control mt-4" placeholder="Nhập SĐT" />
+            <input asp-for="MatKhau" class="form-control mt-4" placeholder="Nhập mật khẩu" />
+            <button class="btn btn-primary mt-3 me-5" style="
+						   background-color: #088d52;">Login</button>
+            
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">@ViewBag.Error</div>
+            }
+        </form>
+
+    </div>
+</body>
+</html>

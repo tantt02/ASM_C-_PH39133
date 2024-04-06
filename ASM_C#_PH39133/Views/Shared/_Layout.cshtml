@@ -1,0 +1,124 @@
+﻿@inject MyDbContext dbContext
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - ASM_C__PH39133</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/ASM_C__PH39133.styles.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/fonts/fontawesome/css/all.min.css" />
+	<style>
+		.register-btn {
+			background-color: #d9b22e;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		.login-btn {
+			background-color: #d9b22e;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		.butn {
+			background-color: transparent;
+			border: none;
+			cursor: pointer;
+		}
+
+			.butn:hover {
+				color: aqua;
+			}
+
+	</style>
+</head>
+<body>
+	
+	<header>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+			<div class="container-fluid">
+				@*  <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ASM_C__PH39133</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+				</button> *@
+				<div class="navbar-collapse collapse d-flex justify-content-between align-items: center;">
+					<ul class="navbar-nav flex-grow-1">
+
+						<li>
+							<a style="line-height: 44px;" class="nav-link text-dark " asp-area="" asp-controller="Home" asp-action="Index"><img style="padding:0;" src="~/imgs/logo.png.webp" alt="Logo Nike"></a>
+						</li>
+					</ul>
+
+
+					@{
+						var username = ViewContext.HttpContext.Session.GetString("Username");
+						var admin = dbContext.Customers.FirstOrDefault(c => c.TenKH == username && c.IsAdmin);
+						if (!string.IsNullOrEmpty(username))
+						{
+							if (admin != null)
+							{
+								<a style="line-height: 44px; " class="nav-link text-dark " asp-area="" asp-controller="Customers" asp-action="Index">Quản lý khách hàng</a>
+								<a style="line-height: 44px; " class="nav-link text-dark " asp-area="" asp-controller="Products" asp-action="Index">Quản lý sản phẩm</a>
+								<a style="line-height: 44px; " class="nav-link text-dark " asp-area="" asp-controller="Categories" asp-action="Index">Danh mục</a>
+								<form asp-action="Index" asp-controller="Home" method="get" class="d-flex" role="search">
+									<input style="width:400px;" class="form-control" type="search" name="name" placeholder="Search" aria-label="Search">
+									<button class="btn btn-outline-success" type="submit">Search</button>
+								</form>
+								<span class="nav-link text-dark">Xin chào: @username "-_-"</span>
+								<form asp-action="Logout" asp-controller="Home" method="post">
+									<button class="butn" type="submit">Logout</button>
+								</form>
+							}
+							else
+							{
+								<form asp-action="Index" asp-controller="Home" method="get" class="d-flex" role="search">
+									<input style="width:400px;" class="form-control" type="search" name="name" placeholder="Search" aria-label="Search">
+									<button class="btn btn-outline-success" type="submit">Search</button>
+								</form>
+								<a style="line-height: 44px; " class="nav-link text-dark " asp-area="" asp-controller="Cart_details" asp-action="AddToCart">Giỏ hàng</a>
+								<span class="nav-link text-dark">Xin chào: @username "-_-"</span>
+								<form asp-action="Logout" asp-controller="Home" method="post">
+									<button class="butn" type="submit">Logout</button>
+								</form>
+							}
+						}
+						else
+						{
+							<form asp-action="Index" asp-controller="Home" method="get" class="d-flex" role="search">
+								<input style="width:400px;" class="form-control" type="search" name="name" placeholder="Search" aria-label="Search">
+								<button class="btn btn-outline-success" type="submit">Search</button>
+							</form>
+							<a class="nav-link text-dark " asp-area="" asp-controller="Home" asp-action="Register"><button class="register-btn">Đăng ký</button></a>
+							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login"><button class=" login-btn">Đăng Nhập</button></a>
+						}
+					}
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container">
+		
+		<main role="main" class="pb-3">
+			
+			@RenderBody()
+		</main>
+	</div>
+
+	@* <footer class="border-top footer text-muted">
+	<div class="container">
+	&copy; 2024 - ASM_C__PH39133 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+	</div>
+	</footer> *@
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
