@@ -39,15 +39,14 @@ namespace ASM_C__PH39133.Controllers
 		{
 
 			var idkh = HttpContext.Session.GetString("idKH");
-			ViewBag.Id = idkh;
 			if (idkh == null)
 			{
 				return RedirectToAction("Login", "Home");
 			}
-			var c = _dbContext.Customers.Include(a => a.Carts).ThenInclude(a => a.Cart_Details).FirstOrDefault(a => a.IdKH == a.Carts.IDKH && a.IdKH == Guid.Parse(idkh));
+			var c = _dbContext.Customers.Include(a => a.Carts).Include(a => a.Carts.Cart_Details).FirstOrDefault(a => a.IdKH == a.Carts.IDKH && a.IdKH == Guid.Parse(idkh));
 
 			var ac = c.Carts.Cart_Details.FirstOrDefault(cd => cd.MaSP == idProduct);
-
+			ViewBag.CartDe = ac;
 			if (ac == null)
 			{
 				var CartDetail = new Cart_detail()
@@ -58,28 +57,14 @@ namespace ASM_C__PH39133.Controllers
 					SoLuong = 1
 				};
 
-				c.Carts.Cart_Details.Add(CartDetail);
+			 c.Carts.Cart_Details.Add(CartDetail);
+				
 			}
 			else
 			{
 				ac.SoLuong++;
 			}
-			//try
-			//{
-			//	// Lưu thay đổi vào cơ sở dữ liệu
-			//	_dbContext.SaveChanges();
-			//}
-			//catch (DbUpdateConcurrencyException ex)
-			//{
-			//	foreach (var entry in ex.Entries)
-			//	{
-			//		if (entry.Entity is Cart_detail cartDetail)
-			//		{
-			//			_dbContext.Entry(cartDetail).Reload();
-			//			// Điều chỉnh thay đổi của bạn trên đối tượng đã tải lại
-			//		}
-			//	}
-			//}
+			
 
 			return View("listCarts");
 

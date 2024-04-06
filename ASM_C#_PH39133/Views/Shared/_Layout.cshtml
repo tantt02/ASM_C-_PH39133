@@ -30,16 +30,30 @@
 			background-color: transparent;
 			border: none;
 			cursor: pointer;
+			padding-bottom: 4px
 		}
 
 			.butn:hover {
 				color: aqua;
 			}
 
+		.header-cart-num {
+			position: absolute;
+			top: 23px;
+			right: 215px;
+			background-color: #fff;
+			color: var(--primary-color);
+			font-size: 14px;
+			line-height: 12px;
+			font-weight: 500;
+			padding: 3px 5px;
+			border-radius: 10px;
+			border: 2px solid #ee4d2d;
+		}
 	</style>
 </head>
 <body>
-	
+
 	<header>
 		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
 			<div class="container-fluid">
@@ -71,7 +85,11 @@
 									<input style="width:400px;" class="form-control" type="search" name="name" placeholder="Search" aria-label="Search">
 									<button class="btn btn-outline-success" type="submit">Search</button>
 								</form>
-								<span class="nav-link text-dark">Xin chào: @username "-_-"</span>
+								<span class="nav-link text-dark">
+									<img style="width: 22px; padding-bottom: 4px; margin-left: 16px" src="./imgs/avatar.png"
+										 alt=""
+										 class="nav-item-user-avatar" /> @username "-_-"
+								</span>
 								<form asp-action="Logout" asp-controller="Home" method="post">
 									<button class="butn" type="submit">Logout</button>
 								</form>
@@ -82,8 +100,15 @@
 									<input style="width:400px;" class="form-control" type="search" name="name" placeholder="Search" aria-label="Search">
 									<button class="btn btn-outline-success" type="submit">Search</button>
 								</form>
-								<a style="line-height: 44px; " class="nav-link text-dark " asp-area="" asp-controller="Cart_details" asp-action="AddToCart">Giỏ hàng</a>
-								<span class="nav-link text-dark">Xin chào: @username "-_-"</span>
+								<a style="line-height: 44px; padding-bottom: 6px; margin-left: 30px " class="nav-link text-dark " asp-area="" asp-controller="Cart_details" asp-action="AddToCart">
+									<i style="font-size: 24px" class="fas fa-shopping-cart header-cart-icon"></i>
+									<span class="header-cart-num">3</span>
+								</a>
+								<span class="nav-link text-dark">
+									<img style="width: 22px; padding-bottom: 4px; margin-left: 16px" src="./imgs/avatar.png"
+										 alt=""
+										 class="nav-item-user-avatar" /> @username "-_-"
+								</span>
 								<form asp-action="Logout" asp-controller="Home" method="post">
 									<button class="butn" type="submit">Logout</button>
 								</form>
@@ -104,9 +129,9 @@
 		</nav>
 	</header>
 	<div class="container">
-		
+
 		<main role="main" class="pb-3">
-			
+
 			@RenderBody()
 		</main>
 	</div>
