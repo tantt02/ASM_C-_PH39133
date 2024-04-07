@@ -17,13 +17,13 @@ namespace ASM_C__PH39133.Models
 		[Required]
 		public Guid MaSP { get; set; }
 
-
 		[Required]
 		public int SoLuong { get; set; }
-		[ForeignKey("IdGioHang")]
-		public virtual Products? Products { get; set; }
 
 		[ForeignKey("MaSP")]
+		public virtual Products? Products { get; set; }
+
+		[ForeignKey("IdGioHang")]
 		public virtual Carts? Carts { get; set; }
 	}
 }

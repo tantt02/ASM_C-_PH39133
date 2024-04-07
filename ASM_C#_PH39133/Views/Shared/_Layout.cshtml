@@ -100,9 +100,9 @@
 									<input style="width:400px;" class="form-control" type="search" name="name" placeholder="Search" aria-label="Search">
 									<button class="btn btn-outline-success" type="submit">Search</button>
 								</form>
-								<a style="line-height: 44px; padding-bottom: 6px; margin-left: 30px " class="nav-link text-dark " asp-area="" asp-controller="Cart_details" asp-action="AddToCart">
+								<a style="line-height: 44px; padding-bottom: 6px; margin-left: 30px " class="nav-link text-dark " asp-area="" asp-controller="Cart_details" asp-action="Index">
 									<i style="font-size: 24px" class="fas fa-shopping-cart header-cart-icon"></i>
-									<span class="header-cart-num">3</span>
+									<span class="header-cart-num">@ViewBag.Count</span>
 								</a>
 								<span class="nav-link text-dark">
 									<img style="width: 22px; padding-bottom: 4px; margin-left: 16px" src="./imgs/avatar.png"

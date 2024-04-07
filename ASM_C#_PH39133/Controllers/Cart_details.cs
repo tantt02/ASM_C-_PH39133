@@ -1,8 +1,11 @@
-﻿using ASM_C__PH39133.Models;
+﻿using ASM_C__PH39133.Migrations;
+using ASM_C__PH39133.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace ASM_C__PH39133.Controllers
@@ -17,7 +20,16 @@ namespace ASM_C__PH39133.Controllers
 		// GET: Cart_Details
 		public ActionResult Index()
 		{
-			return View();
+
+			var idkh = HttpContext.Session.GetString("idKH");
+			var c = _dbContext.Customers.Include(a => a.Carts).Include(a => a.Carts.Cart_Details).FirstOrDefault(a => a.IdKH == a.Carts.IDKH && a.IdKH == Guid.Parse(idkh));
+			var data = _dbContext.CartDetails.Include(a => a.Products).Include(a => a.Carts).Where(a => a.Carts.IdGioHang == c.Carts.IdGioHang).ToList();
+			if (idkh != null)
+			{
+				ViewBag.total = data.Sum(item => item.Products.DonGia * item.SoLuong);
+				ViewBag.Count = data.Count;
+			}
+			return View(data);
 		}
 
 		// GET: Cart_Details/Details/5
@@ -25,15 +37,6 @@ namespace ASM_C__PH39133.Controllers
 		{
 			return View();
 		}
-
-		// GET: Cart_Details/Create
-		//public ActionResult Create()
-		//{
-		//    return View();
-		//}
-
-		// POST: Cart_Details/Create
-
 
 		public ActionResult AddToCart(Guid idProduct)
 		{
@@ -44,9 +47,9 @@ namespace ASM_C__PH39133.Controllers
 				return RedirectToAction("Login", "Home");
 			}
 			var c = _dbContext.Customers.Include(a => a.Carts).Include(a => a.Carts.Cart_Details).FirstOrDefault(a => a.IdKH == a.Carts.IDKH && a.IdKH == Guid.Parse(idkh));
+			var data = _dbContext.CartDetails.Include(a => a.Products).Include(a => a.Carts).Where(a => a.Carts.IdGioHang == c.Carts.IdGioHang).ToList();
 
 			var ac = c.Carts.Cart_Details.FirstOrDefault(cd => cd.MaSP == idProduct);
-			ViewBag.CartDe = ac;
 			if (ac == null)
 			{
 				var CartDetail = new Cart_detail()
@@ -57,59 +60,64 @@ namespace ASM_C__PH39133.Controllers
 					SoLuong = 1
 				};
 
-			 c.Carts.Cart_Details.Add(CartDetail);
-				
+				_dbContext.CartDetails.Add(CartDetail);
 			}
 			else
 			{
 				ac.SoLuong++;
 			}
-			
+			_dbContext.SaveChanges();
 
-			return View("listCarts");
+			ViewBag.total = data.Sum(item => item.Products.DonGia * item.SoLuong);
+			return View("Index", data);
 
 
 		}
 		// GET: Cart_Details/Edit/5
-		public ActionResult Edit(int id)
-		{
-			return View();
+		
+		public ActionResult Edit(Guid idProduct)
+        {
+			var idkh = HttpContext.Session.GetString("idKH");
+			var c = _dbContext.Customers.Include(a => a.Carts).Include(a => a.Carts.Cart_Details).FirstOrDefault(a => a.IdKH == a.Carts.IDKH && a.IdKH == Guid.Parse(idkh));
+			var data = _dbContext.CartDetails.Include(a => a.Products).Include(a => a.Carts).Where(a => a.Carts.IdGioHang == c.Carts.IdGioHang).ToList();
+			var ac = c.Carts.Cart_Details.FirstOrDefault(cd => cd.MaSP == idProduct);
+			return View(ac);
 		}
 
 		// POST: Cart_Details/Edit/5
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Edit(int id, IFormCollection collection)
+		public ActionResult Edit(Guid idProduct, string a)
 		{
-			try
+			var idkh = HttpContext.Session.GetString("idKH");
+			var c = _dbContext.Customers.Include(a => a.Carts).Include(a => a.Carts.Cart_Details).FirstOrDefault(a => a.IdKH == a.Carts.IDKH && a.IdKH == Guid.Parse(idkh));
+			var data = _dbContext.CartDetails.Include(a => a.Products).Include(a => a.Carts).Where(a => a.Carts.IdGioHang == c.Carts.IdGioHang).ToList();
+			var ac = c.Carts.Cart_Details.FirstOrDefault(cd => cd.MaSP == idProduct);
+			if (ac != null)
 			{
-				return RedirectToAction(nameof(Index));
+				//_dbContext.CartDetails.Find(ac);
+				_dbContext.CartDetails.Update(ac);
+				_dbContext.SaveChanges();
 			}
-			catch
-			{
-				return View();
-			}
+
+			return View("Index", data);
+
 		}
 
 		// GET: Cart_Details/Delete/5
-		public ActionResult Delete(int id)
+		public ActionResult Delete(Guid idProduct)
 		{
-			return View();
+			var idkh = HttpContext.Session.GetString("idKH");
+			var c = _dbContext.Customers.Include(a => a.Carts).Include(a => a.Carts.Cart_Details).FirstOrDefault(a => a.IdKH == a.Carts.IDKH && a.IdKH == Guid.Parse(idkh));
+			var data = _dbContext.CartDetails.Include(a => a.Products).Include(a => a.Carts).Where(a => a.Carts.IdGioHang == c.Carts.IdGioHang).ToList();
+			var ac = c.Carts.Cart_Details.FirstOrDefault(cd => cd.MaSP == idProduct);
+			if (ac != null)
+			{
+				_dbContext.CartDetails.Remove(ac);
+				_dbContext.SaveChanges();
+			}
+			return RedirectToAction(nameof(Index));
 		}
 
-		// POST: Cart_Details/Delete/5
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Delete(int id, IFormCollection collection)
-		{
-			try
-			{
-				return RedirectToAction(nameof(Index));
-			}
-			catch
-			{
-				return View();
-			}
-		}
 	}
 }
