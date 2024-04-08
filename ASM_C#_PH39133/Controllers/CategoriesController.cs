@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ASM_C__PH39133.Models;
-using ASM_C__PH39133.Home;
 
 namespace ASM_C__PH39133.Controllers
 {

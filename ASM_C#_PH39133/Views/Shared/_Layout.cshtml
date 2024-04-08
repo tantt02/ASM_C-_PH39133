@@ -54,45 +54,66 @@
 </head>
 <body>
 
-	<header>
-		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-			<div class="container-fluid">
-				@*  <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ASM_C__PH39133</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-				</button> *@
-				<div class="navbar-collapse collapse d-flex justify-content-between align-items: center;">
-					<ul class="navbar-nav flex-grow-1">
+	<div style="height: 1087px" class="container-fluid">
+		<header>
+			<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+				<div class="container-fluid">
+					@*  <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ASM_C__PH39133</a>
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+					</button> *@
+					<div class="navbar-collapse collapse d-flex justify-content-between align-items: center;">
+						<ul class="navbar-nav flex-grow-1">
 
-						<li>
-							<a style="line-height: 44px;" class="nav-link text-dark " asp-area="" asp-controller="Home" asp-action="Index"><img style="padding:0;" src="~/imgs/logo.png.webp" alt="Logo Nike"></a>
-						</li>
-					</ul>
+							<li>
+								<a style="line-height: 44px;" class="nav-link text-dark " asp-area="" asp-controller="Home" asp-action="Index"><img style="padding:0;" src="~/imgs/logo.png.webp" alt="Logo Nike"></a>
+							</li>
+						</ul>
 
 
-					@{
-						var username = ViewContext.HttpContext.Session.GetString("Username");
-						var admin = dbContext.Customers.FirstOrDefault(c => c.TenKH == username && c.IsAdmin);
-						if (!string.IsNullOrEmpty(username))
-						{
-							if (admin != null)
+						@{
+							var username = ViewContext.HttpContext.Session.GetString("Username");
+							var admin = dbContext.Customers.FirstOrDefault(c => c.TenKH == username && c.IsAdmin);
+							if (!string.IsNullOrEmpty(username))
 							{
-								<a style="line-height: 44px; " class="nav-link text-dark " asp-area="" asp-controller="Customers" asp-action="Index">Quản lý khách hàng</a>
-								<a style="line-height: 44px; " class="nav-link text-dark " asp-area="" asp-controller="Products" asp-action="Index">Quản lý sản phẩm</a>
-								<a style="line-height: 44px; " class="nav-link text-dark " asp-area="" asp-controller="Categories" asp-action="Index">Danh mục</a>
-								<form asp-action="Index" asp-controller="Home" method="get" class="d-flex" role="search">
-									<input style="width:400px;" class="form-control" type="search" name="name" placeholder="Search" aria-label="Search">
-									<button class="btn btn-outline-success" type="submit">Search</button>
-								</form>
-								<span class="nav-link text-dark">
-									<img style="width: 22px; padding-bottom: 4px; margin-left: 16px" src="./imgs/avatar.png"
-										 alt=""
-										 class="nav-item-user-avatar" /> @username "-_-"
-								</span>
-								<form asp-action="Logout" asp-controller="Home" method="post">
-									<button class="butn" type="submit">Logout</button>
-								</form>
+								if (admin != null)
+								{
+									<a class="nav-link text-dark " asp-area="" asp-controller="Customers" asp-action="Index">Quản lý khách hàng</a>
+									<a  class="nav-link text-dark " asp-area="" asp-controller="Products" asp-action="Index">Quản lý sản phẩm</a>
+									<a class="nav-link text-dark " asp-area="" asp-controller="Categories" asp-action="Index">Danh mục</a>
+									<form asp-action="Index" asp-controller="Home" method="get" class="d-flex" role="search">
+										<input style="width:400px;" class="form-control" type="search" name="name" placeholder="Search" aria-label="Search">
+										<button class="btn btn-outline-success" type="submit">Search</button>
+									</form>
+									<span class="nav-link text-dark">
+										<img style="width: 22px; padding-bottom: 4px; margin-left: 16px" src="./imgs/avatar.png"
+											 alt=""
+											 class="nav-item-user-avatar" /> @username "-_-"
+									</span>
+									<form asp-action="Logout" asp-controller="Home" method="post">
+										<button class="butn" type="submit">Logout</button>
+									</form>
+								}
+								else
+								{
+									<form asp-action="Index" asp-controller="Home" method="get" class="d-flex" role="search">
+										<input style="width:400px;" class="form-control" type="search" name="name" placeholder="Search" aria-label="Search">
+										<button class="btn btn-outline-success" type="submit">Search</button>
+									</form>
+									<a style="line-height: 44px; padding-bottom: 6px; margin-left: 30px " class="nav-link text-dark " asp-area="" asp-controller="Cart_details" asp-action="Index">
+										<i style="font-size: 24px;" class="fas fa-shopping-cart header-cart-icon"></i>
+										<span class="header-cart-num">@ViewBag.Count</span>
+									</a>
+									<span class="nav-link text-dark">
+										<img style="width: 22px; padding-bottom: 4px; margin-left: 16px" src="./imgs/avatar.png"
+											 alt=""
+											 class="nav-item-user-avatar" /> @username "-_-"
+									</span>
+									<form asp-action="Logout" asp-controller="Home" method="post">
+										<button class="butn" type="submit">Logout</button>
+									</form>
+								}
 							}
 							else
 							{
@@ -100,40 +121,21 @@
 									<input style="width:400px;" class="form-control" type="search" name="name" placeholder="Search" aria-label="Search">
 									<button class="btn btn-outline-success" type="submit">Search</button>
 								</form>
-								<a style="line-height: 44px; padding-bottom: 6px; margin-left: 30px " class="nav-link text-dark " asp-area="" asp-controller="Cart_details" asp-action="Index">
-									<i style="font-size: 24px" class="fas fa-shopping-cart header-cart-icon"></i>
-									<span class="header-cart-num">@ViewBag.Count</span>
-								</a>
-								<span class="nav-link text-dark">
-									<img style="width: 22px; padding-bottom: 4px; margin-left: 16px" src="./imgs/avatar.png"
-										 alt=""
-										 class="nav-item-user-avatar" /> @username "-_-"
-								</span>
-								<form asp-action="Logout" asp-controller="Home" method="post">
-									<button class="butn" type="submit">Logout</button>
-								</form>
+								<a class="nav-link text-dark " asp-area="" asp-controller="Home" asp-action="Register"><button class="register-btn">Đăng ký</button></a>
+								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login"><button class=" login-btn">Đăng Nhập</button></a>
 							}
 						}
-						else
-						{
-							<form asp-action="Index" asp-controller="Home" method="get" class="d-flex" role="search">
-								<input style="width:400px;" class="form-control" type="search" name="name" placeholder="Search" aria-label="Search">
-								<button class="btn btn-outline-success" type="submit">Search</button>
-							</form>
-							<a class="nav-link text-dark " asp-area="" asp-controller="Home" asp-action="Register"><button class="register-btn">Đăng ký</button></a>
-							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login"><button class=" login-btn">Đăng Nhập</button></a>
-						}
-					}
+					</div>
 				</div>
-			</div>
-		</nav>
-	</header>
-	<div class="container">
+			</nav>
+		</header>
+		<div class="container">
 
-		<main role="main" class="pb-3">
+			<main role="main" class="pb-3">
 
-			@RenderBody()
-		</main>
+				@RenderBody()
+			</main>
+		</div>
 	</div>
 
 	@* <footer class="border-top footer text-muted">

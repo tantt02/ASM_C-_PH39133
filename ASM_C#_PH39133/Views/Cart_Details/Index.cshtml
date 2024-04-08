@@ -24,8 +24,8 @@
 					<td>@item.SoLuong</td>
 					<td>@Convert.ToDouble(item.Products.DonGia * item.SoLuong).ToString("N0")</td>
 					<td >
-						<a asp-controller="Cart_details" asp-action="Delete" asp-route-idProduct="@item.Products.MaSP"><button type="button" class="btn btn-danger"> Xóa</button></a>
-						<a asp-controller="Cart_details" asp-action="Edit" asp-route-idProduct="@item.Products.MaSP"><button  type="button" class="btn btn-warning" > Sửa</button></a>
+						<a asp-controller="Cart_details" asp-action="Delete" asp-route-idProduct="@item.IdGioHangCT"><button type="button" class="btn btn-danger"> Xóa</button></a>
+						<a asp-controller="Cart_details" asp-action="Edit" asp-route-idProduct="@item.IdGioHangCT"><button  type="button" class="btn btn-warning" > Sửa</button></a>
 					</td>
 				</tr>
 

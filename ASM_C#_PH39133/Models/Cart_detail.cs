@@ -11,7 +11,6 @@ namespace ASM_C__PH39133.Models
 		public Guid IdGioHangCT { get; set; }
 
 		[Required]
-		[MaxLength(100)]
 		public Guid IdGioHang { get; set; }
 
 		[Required]
